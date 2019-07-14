@@ -1,0 +1,20 @@
+# Operating System Files
+
+
+# Build Artifacts
+
+
+build/
+target/
+bin/
+dependency-reduced-pom.xml
+
+# Eclipse Project Files
+
+.classpath
+.project
+.settings/
+
+
+
+
