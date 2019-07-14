@@ -1,9 +1,7 @@
 package com.instanceofcake.revolut.rest.service;
 
-
 import java.util.List;
 import org.dalesbred.transaction.Isolation;
-
 
 import com.instanceofcake.revolut.rest.dao.AccountDao;
 import com.instanceofcake.revolut.rest.dao.TransferDao;
@@ -29,8 +27,8 @@ public class TransferService {
 	}
 
 	public int transfer(Transfer transfer) {
-		
-		if(transfer.getAmount() < 0) {
+
+		if (transfer.getAmount() < 0) {
 			throw new InvalidAmountApiException(412, "Precondition Failed", "Amount cannot be negative.");
 		}
 
@@ -49,7 +47,10 @@ public class TransferService {
 					"Insufficient funds for transfer with Account Id-" + transfer.getFromAccountId());
 		}
 
-		DB.db.withVoidTransaction(Isolation.READ_UNCOMMITTED, tx -> {
+		final int fromAccountBalanceBeforeTransfer = fromAccount.getBalance();
+		final int toAccountBalanceBeforeTransfer = toAccount.getBalance();
+
+		DB.db.withVoidTransaction(Isolation.READ_COMMITTED, tx -> {
 
 			try {
 				fromAccount.setBalance(fromAccount.getBalance() - transfer.getAmount());
@@ -59,6 +60,7 @@ public class TransferService {
 			} catch (Exception e) {
 				transfer.setStatus("failure");
 				transferDao.create(transfer);
+				revertTransfer(fromAccount, toAccount, fromAccountBalanceBeforeTransfer,toAccountBalanceBeforeTransfer);
 				try {
 					throw new Exception("Transaction Failed.");
 				} catch (Exception e1) {
@@ -69,6 +71,14 @@ public class TransferService {
 		transfer.setStatus("Transfer completed successfully");
 		return transferDao.create(transfer);
 
+	}
+
+	private void revertTransfer(Account fromAccount, Account toAccount, final int fromAccountBalanceBeforeTransfer,
+			final int toAccountBalanceBeforeTransfer) {
+		fromAccount.setBalance(fromAccountBalanceBeforeTransfer);
+		accountDao.update(fromAccount);
+		toAccount.setBalance(toAccountBalanceBeforeTransfer);
+		accountDao.update(toAccount);
 	}
 
 }
