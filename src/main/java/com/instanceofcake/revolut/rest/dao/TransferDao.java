@@ -22,11 +22,6 @@ public class TransferDao {
 		return DB.db.update(namedQuery);
 	}
 
-	public int update(Transfer transfer) {
-
-		SqlQuery namedQuery = SqlQuery.namedQuery("UPDATE TRANSFER SET (STATUS)" + " VALUES (:status)", transfer);
-		return DB.db.update(namedQuery);
-	}
 
 	public List<Transfer> findAll() {
 

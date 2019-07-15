@@ -12,7 +12,7 @@ import com.instanceofcake.revolut.rest.domain.Transfer;
 import com.instanceofcake.revolut.rest.exception.InvalidAmountApiException;
 import com.instanceofcake.revolut.rest.exception.NoAccountDataFoundApiException;
 import com.instanceofcake.revolut.rest.exception.NoTransferDataFoundApiException;
-import com.instanceofcake.revolut.rest.exception.NotEnoughBalanceAmountApiException;
+import com.instanceofcake.revolut.rest.exception.InsufficientFundsApiException;
 import com.instanceofcake.revolut.rest.exception.ToandFromSameAccountApiException;
 
 public class TransferService {
@@ -47,7 +47,7 @@ public class TransferService {
 					"To  Account cannot be found with Account Id-" + transfer.getToAccountId());
 		}
 		if (fromAccount.getBalance() - transfer.getAmount() < 0) {
-			throw new NotEnoughBalanceAmountApiException(412, "Precondition Failed",
+			throw new InsufficientFundsApiException(412, "Precondition Failed",
 					"Insufficient funds for transfer with Account Id-" + transfer.getFromAccountId());
 		}
 

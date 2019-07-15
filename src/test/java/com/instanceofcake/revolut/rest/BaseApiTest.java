@@ -9,6 +9,7 @@ import com.instanceofcake.revolut.rest.util.Util;
 public class BaseApiTest {
 
 	@BeforeClass
+	
 	public static void setUp() throws Exception {
 		DB.db = Database.forUrlAndCredentials("jdbc:hsqldb:mem:memdb;sql.syntax_mys=true;sql.enforce_size=false", "SA","");
 	//	DB.db   = Database.forUrlAndCredentials("jdbc:mysql://localhost:3306/test", "root", "admin");
