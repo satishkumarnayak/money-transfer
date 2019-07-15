@@ -2,6 +2,7 @@ package com.instanceofcake.revolut.rest.service;
 
 import java.util.List;
 import org.dalesbred.transaction.Isolation;
+import org.dalesbred.transaction.Propagation;
 
 import com.instanceofcake.revolut.rest.dao.AccountDao;
 import com.instanceofcake.revolut.rest.dao.TransferDao;
@@ -12,6 +13,7 @@ import com.instanceofcake.revolut.rest.exception.InvalidAmountApiException;
 import com.instanceofcake.revolut.rest.exception.NoAccountDataFoundApiException;
 import com.instanceofcake.revolut.rest.exception.NoTransferDataFoundApiException;
 import com.instanceofcake.revolut.rest.exception.NotEnoughBalanceAmountApiException;
+import com.instanceofcake.revolut.rest.exception.ToandFromSameAccountApiException;
 
 public class TransferService {
 
@@ -31,7 +33,9 @@ public class TransferService {
 		if (transfer.getAmount() < 0) {
 			throw new InvalidAmountApiException(412, "Precondition Failed", "Amount cannot be negative.");
 		}
-
+		if (transfer.getFromAccountId().equals(transfer.getToAccountId())) {
+			throw new ToandFromSameAccountApiException(412, "Precondition Failed", "To  Account and From Account Id cannot be same.");
+		}
 		Account fromAccount = accountDao.findById(transfer.getFromAccountId());
 		if (fromAccount == null) {
 			throw new NoAccountDataFoundApiException(404, "No Data Found",
@@ -50,7 +54,7 @@ public class TransferService {
 		final int fromAccountBalanceBeforeTransfer = fromAccount.getBalance();
 		final int toAccountBalanceBeforeTransfer = toAccount.getBalance();
 
-		DB.db.withVoidTransaction(Isolation.READ_COMMITTED, tx -> {
+		DB.db.withVoidTransaction(Propagation.NESTED,Isolation.READ_COMMITTED, tx -> {
 
 			try {
 				fromAccount.setBalance(fromAccount.getBalance() - transfer.getAmount());
