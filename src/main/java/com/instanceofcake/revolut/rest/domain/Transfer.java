@@ -1,6 +1,5 @@
 package com.instanceofcake.revolut.rest.domain;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Transfer {
@@ -14,6 +13,17 @@ public class Transfer {
 
 	public Transfer() {
 		super();
+	}
+
+	public Transfer(Integer id, Integer fromAccountId, Integer toAccountId, Integer amount, String status,
+			Date timestamp) {
+		super();
+		this.id = id;
+		this.fromAccountId = fromAccountId;
+		this.toAccountId = toAccountId;
+		this.amount = amount;
+		this.status = status;
+		this.timestamp = timestamp;
 	}
 
 	public Integer getId() {
@@ -63,6 +73,5 @@ public class Transfer {
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
 	}
-
 
 }

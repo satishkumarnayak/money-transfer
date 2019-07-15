@@ -40,9 +40,9 @@ public class AccountDao {
 		SqlQuery query = SqlQuery.namedQuery("UPDATE ACCOUNT SET BALANCE = :balance WHERE ID = :id",
 				VariableResolver.forMap(params));
 
-		int i = DB.db.update(query);
+		int noOfRecordsUpdated = DB.db.update(query);
 
-		return i;
+		return noOfRecordsUpdated;
 
 	}
 
