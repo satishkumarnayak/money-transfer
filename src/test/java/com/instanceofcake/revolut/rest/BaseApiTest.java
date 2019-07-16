@@ -57,9 +57,7 @@ public class BaseApiTest {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-
-		System.out.println(stringWriter);
+		}	
 		return stringWriter.toString();
 	}
 
