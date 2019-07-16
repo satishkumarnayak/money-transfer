@@ -8,8 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.gson.Gson;
 import com.instanceofcake.revolut.rest.domain.Transfer;
 import com.instanceofcake.revolut.rest.service.TransferService;
 import com.instanceofcake.revolut.rest.util.Util;
@@ -36,7 +34,8 @@ public class TransferApiServlet extends HttpServlet {
 
 		service.transfer(transfer);
 
-		Util.buildAndSendResponse(resp, 201, "The request is complete, and a new resource is created.","Fund Transfer Completed Successfully");
+		Util.buildAndSendResponse(resp, 201, "The request is complete, and a new resource is created.",
+				"Fund Transfer Completed Successfully");
 
 	}
 }

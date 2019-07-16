@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.instanceofcake.revolut.rest.domain.Account;
-import com.instanceofcake.revolut.rest.exception.ApiException;
 import com.instanceofcake.revolut.rest.service.AccountService;
 import com.instanceofcake.revolut.rest.util.Util;
 
