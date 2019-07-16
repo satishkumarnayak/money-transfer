@@ -12,6 +12,7 @@ import com.google.gson.reflect.TypeToken;
 import com.instanceofcake.revolut.rest.BaseApiTest;
 import com.instanceofcake.revolut.rest.domain.Account;
 import com.instanceofcake.revolut.rest.domain.Transfer;
+import com.instanceofcake.revolut.rest.exception.NoTransferDataFoundApiException;
 import com.instanceofcake.revolut.rest.util.Response;
 import com.instanceofcake.revolut.rest.util.Util;
 
@@ -103,6 +104,48 @@ public class TransferApiTest extends BaseApiTest {
 		assertEquals(10, actual.getAmount().intValue());
 		assertEquals("Transfer Completed Successfully", actual.getStatus());
 
+	}
+	
+	@Test
+	public void testNoTransferDataFoundApiException_whenNoRecordsExits() {
+		String Uri = "/transfers";
+		String httpMethod = "GET";
+
+		String jsonString = apiServletRouter(Uri, httpMethod, "");
+
+		Response actualResponse = Util.GSON.fromJson(jsonString, Response.class);
+
+		assertNotNull(actualResponse);
+
+		assertEquals(404, actualResponse.getStatusCode());
+		assertEquals("No Data Found", actualResponse.getMessage());
+		assertEquals("No Transfer Data Found", actualResponse.getDescription());
+
+	}
+	
+	
+	@Test
+	public void testInvalidAmountApiException_whenNegativeAmountGiven() {
+
+		String Uri = "/transfers";
+		String httpMethod = "POST";
+		String jsonBodyString = "{"
+				+ "\r\n" + "    \r\n" + "  "
+				+ "  \"fromAccountId\":321,\r\n" + "  "
+				+ "  \"toAccountId\":322,\r\n"
+				+ "    \"amount\":-1\r\n" + 
+				"}";
+
+		String jsonString = apiServletRouter(Uri, httpMethod, jsonBodyString);
+
+		
+		Response actualResponse = Util.GSON.fromJson(jsonString, Response.class);
+
+		assertNotNull(actualResponse);
+
+		assertEquals(412, actualResponse.getStatusCode());
+		assertEquals("Precondition Failed", actualResponse.getMessage());
+		assertEquals("Amount cannot be negative.", actualResponse.getDescription());
 	}
 
 }
