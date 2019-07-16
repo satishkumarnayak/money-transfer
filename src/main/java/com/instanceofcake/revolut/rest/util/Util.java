@@ -21,7 +21,7 @@ public class Util {
 
 	public static final Gson GSON = new GsonBuilder().create();
 
-	public static void buildAndSendErrorResponse(HttpServletResponse httpResp, int statusCode, String msg, String desc) throws IOException {
+	public static void buildAndSendResponse(HttpServletResponse httpResp, int statusCode, String msg, String desc) throws IOException {
 		Response responseBody = new Response(statusCode, msg, desc);
 		httpResp.addHeader("Content-Type", "application/json");
 		httpResp.setStatus(statusCode);

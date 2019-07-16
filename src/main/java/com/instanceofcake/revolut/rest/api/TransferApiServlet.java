@@ -36,7 +36,7 @@ public class TransferApiServlet extends HttpServlet {
 
 		service.transfer(transfer);
 
-		Util.buildAndSendSuccessResponse(resp, 201, Util.GSON.toJson(transfer));
+		Util.buildAndSendResponse(resp, 201, "The request is complete, and a new resource is created.","Fund Transfer Completed Successfully");
 
 	}
 }

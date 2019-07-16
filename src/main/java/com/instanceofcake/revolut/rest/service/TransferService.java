@@ -72,7 +72,7 @@ public class TransferService {
 			}
 		});
 
-		transfer.setStatus("Transfer completed successfully");
+		transfer.setStatus("Transfer Completed Successfully");
 		return transferDao.create(transfer);
 
 	}

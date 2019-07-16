@@ -37,21 +37,15 @@ public class AccountDaoTest extends BaseApiTest {
 		assertEquals(Integer.valueOf(900), account2.getBalance());
 		assertEquals("SAVINGS", account2.getType());
 
-		Account account3 = accounts.get(2);
-		assertNotNull(account3);
-		assertEquals(Integer.valueOf(323), account3.getId());
-		assertEquals(Integer.valueOf(600), account3.getBalance());
-		assertEquals("CHECKING", account3.getType());
-
 	}
 
 	@Test
 	public void testFindById() {
-		Account account = dao.findById(323);
+		Account account = dao.findById(321);
 		assertNotNull(account);
-		assertEquals(Integer.valueOf(323), account.getId());
-		assertEquals(Integer.valueOf(600), account.getBalance());
-		assertEquals("CHECKING", account.getType());
+		assertEquals(Integer.valueOf(321), account.getId());
+		assertEquals(Integer.valueOf(800), account.getBalance());
+		assertEquals("SAVINGS", account.getType());
 
 	}
 

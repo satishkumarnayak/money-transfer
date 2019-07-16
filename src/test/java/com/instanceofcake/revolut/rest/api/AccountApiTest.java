@@ -13,7 +13,7 @@ import com.instanceofcake.revolut.rest.BaseApiTest;
 import com.instanceofcake.revolut.rest.domain.Account;
 import com.instanceofcake.revolut.rest.util.Util;
 
-public class AccountsApiTest extends BaseApiTest {
+public class AccountApiTest extends BaseApiTest {
 
 	@Test
 	public void testGetAccounts() {
@@ -44,11 +44,7 @@ public class AccountsApiTest extends BaseApiTest {
 		assertEquals(Integer.valueOf(900), account2.getBalance());
 		assertEquals("SAVINGS", account2.getType());
 
-		Account account3 = accounts.get(2);
-		assertNotNull(account3);
-		assertEquals(Integer.valueOf(323), account3.getId());
-		assertEquals(Integer.valueOf(600), account3.getBalance());
-		assertEquals("CHECKING", account3.getType());
+		
 
 	}
 
