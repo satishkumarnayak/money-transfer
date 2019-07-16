@@ -21,7 +21,7 @@ public class ApiRouterServlet extends HttpServlet {
 	private String requestURI;
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		try {
 			requestURI = req.getRequestURI();
@@ -40,7 +40,7 @@ public class ApiRouterServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			requestURI = req.getRequestURI();
 			if (requestURI.startsWith("/transfers")) {

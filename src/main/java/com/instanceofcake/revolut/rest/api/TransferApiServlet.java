@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.instanceofcake.revolut.rest.domain.Transfer;
 import com.instanceofcake.revolut.rest.service.TransferService;
 import com.instanceofcake.revolut.rest.util.Util;
