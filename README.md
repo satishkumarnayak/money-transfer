@@ -1,6 +1,6 @@
 # Money Transfer API 1.0
 
-This demo is about a REST API for money transfer.
+This is basic REST API for money transfer between two existings bank accounts.
 This application runs with in-memory database and embedded jetty as a standalone program which doesn’t require a pre-installed container/server.
 
 # Requirements
