@@ -1,4 +1,4 @@
-# Money Transfer 1.0
+# Money Transfer API 1.0
 
 This demo is about a REST API for money transfer.
 This application runs with in-memory database and embedded jetty as a standalone program which doesn’t require a pre-installed container/server.
